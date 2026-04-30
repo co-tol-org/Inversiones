@@ -8,12 +8,12 @@ steps:
     args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/inversion-front:$COMMIT_SHA']
 
   # 3. Desplegar en Cloud Run
-  - name: 'gcr.io/[google.com/cloudsdktool/cloud-sdk](https://google.com/cloudsdktool/cloud-sdk)'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       - 'run'
       - 'deploy'
-      - 'monitor-inversion' # Nombre del servicio final
+      - 'monitor-inversion' 
       - '--image'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/inversion-front:$COMMIT_SHA'
       - '--region'
@@ -23,10 +23,11 @@ steps:
       - '--allow-unauthenticated'
       - '--service-account'
       - '753170017712-compute@developer.gserviceaccount.com'
-# Configuración de logging (requerido cuando se usa service_account personalizada)
+
+# Configuración de logging para evitar el error de permisos
 options:
   logging: CLOUD_LOGGING_ONLY
 
-# Imágenes que se guardarán
+# Imágenes que se guardarán (Asegúrate de que el nombre coincida con el paso 1)
 images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-salud:$COMMIT_SHA'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/inversion-front:$COMMIT_SHA'
