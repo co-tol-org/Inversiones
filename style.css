@@ -73,3 +73,18 @@ df-messenger {
 /* El resto de tu CSS del mapa (sidebar, kpi-card, detail-panel, etc.) va aquí debajo */
 #sidebar { position: absolute; top: 24px; left: 24px; width: 320px; background: rgba(255, 255, 255, 0.95); box-shadow: var(--shadow-md); z-index: 1000; border-radius: 12px; padding: 15px; }
 /* ... (pega aquí el CSS del sidebar y detalle que ya teníamos en tu Apps Script) ... */
+
+/* Forzar a que el chat se abra y llene el contenedor */
+df-messenger {
+  z-index: 999;
+}
+
+df-messenger-chat {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* Si quieres que no aparezca la burbuja azul y el chat esté siempre abierto */
+df-messenger-chat-bubble {
+  display: none !important;
+}
