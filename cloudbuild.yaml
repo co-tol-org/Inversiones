@@ -22,4 +22,4 @@ steps:
       - 'managed'
       - '--allow-unauthenticated'
       - '--service-account'
-      - '753170017712-compute@developer.gserviceaccount.com' # Reemplazar con el SA de tu proyecto
+      - '753170017712-compute@developer.gserviceaccount.com'
