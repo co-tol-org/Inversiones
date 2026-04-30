@@ -5,19 +5,19 @@
   <title>Monitor Inversión Tolima 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.css](https://unpkg.com/leaflet@1.9.4/dist/leaflet.css)" crossorigin="anonymous"/>
-  <script src="[https://unpkg.com/leaflet@1.9.4/dist/leaflet.js](https://unpkg.com/leaflet@1.9.4/dist/leaflet.js)" crossorigin="anonymous"></script>
-  <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap)" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="anonymous"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   
-  <link rel="stylesheet" href="[https://www.gstatic.com/dialogflow-console/fast/messenger/cx/v1/main.css](https://www.gstatic.com/dialogflow-console/fast/messenger/cx/v1/main.css)">
-  <script src="[https://www.gstatic.com/dialogflow-console/fast/messenger/cx/v1/main.js](https://www.gstatic.com/dialogflow-console/fast/messenger/cx/v1/main.js)"></script>
+  <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/messenger/cx/v1/main.css">
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/cx/v1/main.js"></script>
 </head>
 <body>
 
   <header class="app-header">
     <div class="branding">
-      <img src="[https://tolima.gov.co/images/Tablero_planeacion_2026.jpg](https://tolima.gov.co/images/Tablero_planeacion_2026.jpg)" alt="Gobernación" class="escudo-img">
+      <img src="https://tolima.gov.co/images/Tablero_planeacion_2026.jpg" alt="Gobernación" class="escudo-img">
       <div class="titles">
         <div class="main-title">Monitor Estratégico <span>Inversión</span></div>
         <div class="sub-title">Gobernación del Tolima</div>
@@ -69,15 +69,18 @@
           </div>
           <button class="btn-reset" id="btn-reset" title="Reiniciar chat">↻</button>
         </div>
+        
         <div class="messenger-wrapper">
           <df-messenger
             project-id="co-tol-prd"
             location="us-central1"
             agent-id="ffe4cffa-7e81-46c9-952a-22ec282bcfab"
-            language-code="es">
+            language-code="es"
+            max-query-length="256">
             <df-messenger-chat-bubble chat-title="AMAIA"></df-messenger-chat-bubble>
           </df-messenger>
         </div>
+
       </div>
     </aside>
   </main>
