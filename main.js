@@ -6,48 +6,61 @@ let ORIGINAL_DATA = [], RAW_DATA = [], MAP_GEOJSON = null, map;
 const state = { sub: "", muni: "", sec: "", munisList: [] };
 
 // 1. INICIALIZAR EL MAPA Y FETCH DE DATOS
-async function init() {
-    map = L.map('map', { zoomControl: false, attributionControl: false });
+async function initMap() {
+    // Inicializamos el mapa aunque el fetch falle
+    map = L.map('map', { zoomControl: false, attributionControl: false }).setView([4.438, -75.232], 9);
     
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
     try {
-        // Cargar datos a través de Fetch API en lugar de google.script.run
-        // Pide a tu equipo que aquí pongan la URL del JSON que arroja BigQuery o el App Script
         const response = await fetch('/api/payload.json'); 
-        const payload = await response.json();
+        if (!response.ok) throw new Error("Archivo JSON no encontrado");
         
+        const payload = await response.json();
         MAP_GEOJSON = payload.geo;
         ORIGINAL_DATA = payload.data;
-        // ... (Tu lógica de mapeo Leaflet, renderDetailPanel y subregiones que ya hicimos) ...
         
-        $('loader').style.display = 'none';
+        // Aquí iría tu lógica de renderizado de capas que ya tienes programada
+        console.log("Datos cargados correctamente");
+        
+        if ($('loader')) $('loader').style.display = 'none';
     } catch (e) { 
-        console.error("Error cargando datos:", e); 
+        console.warn("Aviso: No se pudieron cargar los datos del mapa (esperando API), pero el sistema sigue.");
+        if ($('loader')) $('loader').style.display = 'none';
     }
 }
 
-window.onload = init;
-
-// 2. LÓGICA DEL AGENTE CONVERSACIONAL (Basado en pág. 136)
-document.addEventListener('DOMContentLoaded', () => {
+// 2. LÓGICA DEL AGENTE CONVERSACIONAL (AMAIA)
+function setupChatIA() {
     const btnReset = document.getElementById('btn-reset');
     const dfMessenger = document.querySelector('df-messenger');
     const wrapper = document.querySelector('.messenger-wrapper');
 
-    if (btnReset && dfMessenger) {
+    // Escuchar cuando el componente de Google esté realmente listo
+    if (dfMessenger) {
+        dfMessenger.addEventListener('df-messenger-loaded', () => {
+            console.log("AMAIA: Conexión establecida con Dialogflow CX");
+        });
+    }
+
+    // Lógica del botón de reinicio
+    if (btnReset) {
         btnReset.addEventListener('click', () => {
             if (wrapper) wrapper.style.opacity = '0.5';
             
-            if (dfMessenger.startNewSession) {
-                dfMessenger.startNewSession({ retainHistory: false });
-                console.log('Sesión de IA reiniciada.');
-            } else {
-                sessionStorage.clear();
+            // Limpiamos sesión y refrescamos para asegurar un chat nuevo
+            sessionStorage.clear();
+            setTimeout(() => {
                 window.location.reload();
-            }
-            
-            if (wrapper) {
-                setTimeout(() => { wrapper.style.opacity = '1'; }, 500);
-            }
+            }, 300);
         });
     }
+}
+
+// 3. ARRANQUE UNIFICADO (Evita conflictos de carga)
+window.addEventListener('load', () => {
+    initMap();    // Carga el mapa
+    setupChatIA(); // Carga a AMAIA
 });
