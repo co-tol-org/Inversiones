@@ -23,3 +23,10 @@ steps:
       - '--allow-unauthenticated'
       - '--service-account'
       - '753170017712-compute@developer.gserviceaccount.com'
+# Configuración de logging (requerido cuando se usa service_account personalizada)
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+# Imágenes que se guardarán
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-salud:$COMMIT_SHA'
