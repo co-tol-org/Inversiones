@@ -46,5 +46,16 @@ function setupChatEvents() {
 // 3. ARRANQUE UNIFICADO
 window.addEventListener('load', () => {
     initMap();
+window.addEventListener('df-messenger-loaded', () => {
+    const messenger = document.querySelector('df-messenger');
+    
+    // Opción 1: Disparar el evento formal de bienvenida
+    messenger.triggerWelcomeEvent();
+    
+    // Opción 2: Si el anterior falla, esto "despierta" al bot enviando un evento de inicio
+    setTimeout(() => {
+        messenger.renderCustomText(' '); // Envía un espacio invisible para forzar respuesta
+    }, 1000);
+});
     setupChatEvents();
 });
