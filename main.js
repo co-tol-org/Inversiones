@@ -46,16 +46,21 @@ function setupChatEvents() {
 // 3. ARRANQUE UNIFICADO
 window.addEventListener('load', () => {
     initMap();
+    setupChatEvents();
+});
+
+// 4. DESPERTAR A AMAIA (Fuera del load para que no choque)
 window.addEventListener('df-messenger-loaded', () => {
     const messenger = document.querySelector('df-messenger');
     
-    // Opción 1: Disparar el evento formal de bienvenida
-    messenger.triggerWelcomeEvent();
-    
-    // Opción 2: Si el anterior falla, esto "despierta" al bot enviando un evento de inicio
-    setTimeout(() => {
-        messenger.renderCustomText(' '); // Envía un espacio invisible para forzar respuesta
-    }, 1000);
-});
-    setupChatEvents();
+    // Forzamos el saludo inicial
+    if (messenger) {
+        messenger.triggerWelcomeEvent();
+        
+        // Refuerzo: si en 2 segundos no ha dicho nada, le damos un empujoncito
+        setTimeout(() => {
+            // Solo envía el espacio si el chat sigue vacío
+            messenger.renderCustomText(' '); 
+        }, 2000);
+    }
 });
