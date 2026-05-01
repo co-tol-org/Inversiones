@@ -10,8 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   
-  <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/messenger/cx/v1/main.css">
-<script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+  <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.css">
+  <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
 </head>
 <body>
 
@@ -72,12 +72,14 @@
         
         <div class="messenger-wrapper">
           <df-messenger
-  project-id="co-tol-prd"
-  location="us-central1"
-  agent-id="ffe4cffa-7e81-46c9-952a-22ec282bcfab"
-  language-code="es"
-  expand="true"> <df-messenger-chat-bubble chat-title="AMAIA"></df-messenger-chat-bubble>
-</df-messenger>
+            project-id="co-tol-prd"
+            location="us-central1"
+            agent-id="ffe4cffa-7e81-46c9-952a-22ec282bcfab"
+            language-code="es">
+            <df-messenger-chat
+              chat-title="AMAIA">
+            </df-messenger-chat>
+          </df-messenger>
         </div>
 
       </div>
