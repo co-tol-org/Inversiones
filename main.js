@@ -49,18 +49,13 @@ window.addEventListener('load', () => {
     setupChatEvents();
 });
 
-// 4. DESPERTAR A AMAIA (Fuera del load para que no choque)
+// 4. DESPERTAR A AMAIA
 window.addEventListener('df-messenger-loaded', () => {
     const messenger = document.querySelector('df-messenger');
     
-    // Forzamos el saludo inicial
     if (messenger) {
+        // Esta es la señal oficial. Como ya cambiaste sus instrucciones, 
+        // al recibir esto, ella tomará la iniciativa y lanzará el texto.
         messenger.triggerWelcomeEvent();
-        
-        // Refuerzo: si en 2 segundos no ha dicho nada, le damos un empujoncito
-        setTimeout(() => {
-            // Solo envía el espacio si el chat sigue vacío
-            messenger.renderCustomText(' '); 
-        }, 2000);
     }
 });
