@@ -42,24 +42,82 @@ body, html {
   justify-content: space-between; border-bottom: 2px solid var(--tolima-accent); 
 }
 
-/* CONTENEDOR DEL CHAT */
-.messenger-wrapper { 
-  flex: 1; 
-  position: relative; 
-  background: #ffffff; 
-  min-height: 400px;
+/* =========================================
+   CONTENEDOR PRINCIPAL DEL CHAT (La tarjeta)
+   ========================================= */
+.messenger-wrapper {
+  flex: 1;
+  position: relative;
+  background: #ffffff; /* Fondo blanco para el chat */
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Importante para que nada se salga de la tarjeta */
+  display: flex;
 }
 
+/* =========================================
+   ESTILOS ESPECÍFICOS PARA DF-MESSENGER
+   (Aquí está la magia de la integración)
+   ========================================= */
 df-messenger {
-  position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; z-index: 999;
+  position: relative !important; /* Ya no es absoluto, se integra en el flujo */
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+  z-index: 10;
+
+  /* --- Variables de Marca (Personaliza colores aquí) --- */
+  
+  /* Color de texto principal */
   --df-messenger-font-color: var(--text-primary);
-  --df-messenger-titlebar-display: none;
+  --df-messenger-font-family: 'Inter', sans-serif;
+  
+  /* Ocultar la barra de título nativa de Google (ya tenemos la nuestra) */
+  --df-messenger-titlebar-display: none; 
+
+  /* Fondo de la zona de chat */
   --df-messenger-chat-background: #ffffff;
-  --df-messenger-message-user-background: var(--tolima-primary);
-  --df-messenger-message-bot-background: #f1f5f9;
+
+  /* --- Mensajes del USUARIO --- */
+  /* Fondo Vinotinto */
+  --df-messenger-message-user-background: var(--tolima-primary); 
+  /* Texto Blanco */
+  --df-messenger-message-user-font-color: #ffffff;
+
+  /* --- Mensajes del BOT (Amaia) --- */
+  /* Fondo Gris muy claro */
+  --df-messenger-message-bot-background: #f1f5f9; 
+  /* Texto Oscuro */
+  --df-messenger-message-bot-font-color: var(--text-primary);
+
+  /* --- Zona de ENTRADA de texto --- */
+  /* Fondo Vinotinto muy pálido */
+  --df-messenger-input-background: var(--tolima-primary-pale); 
+  /* Color del icono de enviar (Vinotinto) */
+  --df-messenger-send-icon-color: var(--tolima-primary);
+  /* Borde de enfoque (Oro) */
+  --df-messenger-input-box-focus-border: 2px solid var(--tolima-accent);
 }
 
-df-messenger-chat-bubble { display: none !important; }
-df-messenger-chat { height: 100% !important; width: 100% !important; }
+/* =========================================
+   AJUSTES DE SUB-COMPONENTES
+   ========================================= */
 
-#sidebar { position: absolute; top: 24px; left: 24px; width: 320px; background: rgba(255,255,255,0.95); z-index: 1000; border-radius: 12px; padding: 15px; box-shadow: 0 4px 6px -1px rgba(15,23,42,0.1); }
+/* Forzar que el área de chat llene todo el espacio */
+df-messenger-chat {
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+}
+
+/* Forzar que la zona de entrada de texto se quede abajo */
+df-messenger-user-input {
+  margin-top: auto; /* Empuja la entrada al fondo */
+}
+
+/* OCULTAR LA BURBUJA FLOTANTE (Ya no la necesitamos) */
+df-messenger-chat-bubble {
+  display: none !important;
+}
